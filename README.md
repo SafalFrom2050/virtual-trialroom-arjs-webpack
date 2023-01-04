@@ -35,3 +35,8 @@ Modify the source code inside `src/` folder and the `webpack` will automatically
 ### NFT-based version
 
 `src\js\plugins\arNFTInit.js`
+
+
+## Credits
+
+Thanks to [Yann Klein](https://www.yannklein.me/). I reused his AR.JS Webpack5 boilerplate as a base for this code.
