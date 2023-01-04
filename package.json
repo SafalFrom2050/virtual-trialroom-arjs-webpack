@@ -1,0 +1,46 @@
+{
+  "name": "virtual-trial-room-arjs-webpack",
+  "version": "0.1.0",
+  "description": "Virtual Trial Room using AR.JS and Three.js managed via Webpack.",
+  "main": "index.js",
+  "author": "Safal Sharma",
+  "scripts": {
+    "start": "yarn && cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "build": "yarn && cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+    "open-gh": "gh repo view -w || echo 'Oops, looks like you don't have GH CLI, install it from: https://github.com/cli/cli 😎 ",
+    "create-gh-pages": "git branch gh-pages -f && git push origin gh-pages -f && gh-pages -d dist && gh repo view -w",
+    "deploy": "yarn build && yarn create-gh-pages && yarn open-gh && echo 'Deployed successfully 🚀'"
+  },
+  "keywords": [
+    "webpack",
+    "arjs",
+    "ar",
+    "virtual trialroom"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.2.1",
+    "cross-env": "^7.0.2",
+    "css-loader": "^5.0.0",
+    "css-minimizer-webpack-plugin": "^1.1.5",
+    "html-webpack-plugin": "^5.0.0-alpha.7",
+    "mini-css-extract-plugin": "^1.0.0",
+    "node-sass": "^8.0.0",
+    "postcss-loader": "^4.0.4",
+    "postcss-preset-env": "^6.7.0",
+    "sass-loader": "^10.0.3",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.0.0",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.2.0",
+    "yarn": "^1.22.19"
+  },
+  "dependencies": {
+    "gh-pages": "^3.1.0"
+  }
+}
