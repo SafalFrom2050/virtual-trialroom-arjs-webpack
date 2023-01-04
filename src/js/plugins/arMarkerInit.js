@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import * as THREEx from 'arMarker';
-
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import createTorusKnot from './three/three-torusKnot';
 
 THREEx.ArToolkitContext.baseURL = 'assets/';
+const loader = new GLTFLoader();
 
 const initArMarker = (mode = 'production') => {
   //////////////////////////////////////////////////////////////////////////////////
@@ -55,20 +56,20 @@ const initArMarker = (mode = 'production') => {
   var arToolkitSource = new THREEx.ArToolkitSource(
     sourceType
     // {
-      // to read from the webcam
-      // sourceType : 'webcam',
+    // to read from the webcam
+    // sourceType : 'webcam',
 
-      // // to read from an image
-      // sourceType : 'image',
-      // sourceUrl : THREEx.ArToolkitContext.baseURL + './hiro_sample.png',
+    // // to read from an image
+    // sourceType : 'image',
+    // sourceUrl : THREEx.ArToolkitContext.baseURL + './hiro_sample.png',
 
-      // to read from a video
-      // sourceType : 'video',
-      // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',
+    // to read from a video
+    // sourceType : 'video',
+    // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',
     // }
   )
 
-  arToolkitSource.init(function onReady(){
+  arToolkitSource.init(function onReady() {
     setTimeout(() => {
       onResize();
     }, 1000);
@@ -78,7 +79,7 @@ const initArMarker = (mode = 'production') => {
   const onResize = () => {
     arToolkitSource.onResizeElement()
     arToolkitSource.copyElementSizeTo(renderer.domElement)
-    if( arToolkitContext.arController !== null ){
+    if (arToolkitContext.arController !== null) {
       arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas)
     }
   }
@@ -97,18 +98,18 @@ const initArMarker = (mode = 'production') => {
     detectionMode: 'mono'
   })
   // initialize it
-  arToolkitContext.init(function onCompleted(){
+  arToolkitContext.init(function onCompleted() {
     // copy projection matrix to camera
-    camera.projectionMatrix.copy( arToolkitContext.getProjectionMatrix() );
+    camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
   })
 
 
   // update artoolkit on every frame
-  scene.animationQueue.push(function(){
-    if( arToolkitSource.ready === false ) return
+  scene.animationQueue.push(function () {
+    if (arToolkitSource.ready === false) return
 
     // console.log(arToolkitSource.domElement);
-    arToolkitContext.update( arToolkitSource.domElement )
+    arToolkitContext.update(arToolkitSource.domElement)
 
     // update scene.visible if the marker is seen
     scene.visible = camera.visible
@@ -120,8 +121,8 @@ const initArMarker = (mode = 'production') => {
 
   // init controls for camera
   var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
-    type : 'pattern',
-    patternUrl : THREEx.ArToolkitContext.baseURL + './patt.hiro',
+    type: 'pattern',
+    patternUrl: THREEx.ArToolkitContext.baseURL + './patt.hiro',
     // patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
     // as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
     changeMatrixMode: 'cameraTransformMatrix'
@@ -134,29 +135,39 @@ const initArMarker = (mode = 'production') => {
   //////////////////////////////////////////////////////////////////////////////////
 
   // add a torus knot
-  createTorusKnot(scene);
+  // createTorusKnot(scene);
+
+  loader.load('tshirt.gltf', function (gltf) {
+
+    scene.add(gltf.scene);
+
+  }, undefined, function (error) {
+
+    console.error(error);
+
+  });
 
   //////////////////////////////////////////////////////////////////////////////////
   //    render the whole thing on the page
   //////////////////////////////////////////////////////////////////////////////////
 
   // render the scene
-  scene.animationQueue.push(function(){
-    renderer.render( scene, camera );
+  scene.animationQueue.push(function () {
+    renderer.render(scene, camera);
   })
 
   // run the rendering loop
-  var lastTimeMsec= null
-  requestAnimationFrame(function animate(nowMsec){
+  var lastTimeMsec = null
+  requestAnimationFrame(function animate(nowMsec) {
     // keep looping
-    requestAnimationFrame( animate );
+    requestAnimationFrame(animate);
     // measure time
-    lastTimeMsec  = lastTimeMsec || nowMsec-1000/60
+    lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60
     var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
-    lastTimeMsec  = nowMsec
+    lastTimeMsec = nowMsec
     // call each update function
-    scene.animationQueue.forEach(function(onRenderFct){
-      onRenderFct(deltaMsec/1000, nowMsec/1000)
+    scene.animationQueue.forEach(function (onRenderFct) {
+      onRenderFct(deltaMsec / 1000, nowMsec / 1000)
     })
   })
 }
