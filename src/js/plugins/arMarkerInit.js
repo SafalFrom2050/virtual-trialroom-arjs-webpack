@@ -47,7 +47,7 @@ const initArMarker = (mode = 'production') => {
   const sourceType = {};
   if (mode === 'simulation') {
     sourceType.sourceType = 'image';
-    sourceType.sourceUrl = THREEx.ArToolkitContext.baseURL + 'hiro_sample.png';
+    sourceType.sourceUrl = THREEx.ArToolkitContext.baseURL + 'marker.png';
   } else {
     sourceType.sourceType = 'webcam';
   }
@@ -121,7 +121,7 @@ const initArMarker = (mode = 'production') => {
   // init controls for camera
   var markerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
     type : 'pattern',
-    patternUrl : THREEx.ArToolkitContext.baseURL + './patt.hiro',
+    patternUrl : THREEx.ArToolkitContext.baseURL + './marker.patt',
     // patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
     // as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
     changeMatrixMode: 'cameraTransformMatrix'
