@@ -94,7 +94,7 @@ const initArMarker = (mode = 'production') => {
   // create atToolkitContext
   var arToolkitContext = new THREEx.ArToolkitContext({
     cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'camera_para.dat',
-    detectionMode: 'mono'
+    detectionMode: 'color_and_matrix'
   })
   // initialize it
   arToolkitContext.init(function onCompleted(){
