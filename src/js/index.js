@@ -1,5 +1,8 @@
 import '../styles/index.scss';
 
+// (Initializing GLTFLoader) TODO: initialize GLTFLoader in another way
+import * as GLTFLoader from "./plugins/three/GLTFLoader";
+
 // Import for ARJS image-based version
 import initarNFT from './plugins/arNFTInit';
 // Import for ARJS marker-based version
