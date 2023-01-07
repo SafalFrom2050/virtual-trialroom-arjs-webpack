@@ -47,7 +47,7 @@ const initArMarker = (mode = 'production') => {
   const sourceType = {};
   if (mode === 'simulation') {
     sourceType.sourceType = 'image';
-    sourceType.sourceUrl = THREEx.ArToolkitContext.baseURL + 'marker.png';
+    sourceType.sourceUrl = THREEx.ArToolkitContext.baseURL + 'marker_samples.png';
   } else {
     sourceType.sourceType = 'webcam';
   }
