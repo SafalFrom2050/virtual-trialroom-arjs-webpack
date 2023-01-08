@@ -144,7 +144,7 @@ const initArMarker = (mode = 'production') => {
         const model = gltf.scene;
         // model.rotation.x = 180;
         // model.rotation.x = -90;
-        model.scale.set(10, 10, 10);
+        model.scale.set(2, 2, 2);
         scene.add(gltf.scene);
 
     }, undefined, function (error) {
