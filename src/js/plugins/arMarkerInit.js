@@ -37,6 +37,9 @@ const initArMarker = (mode = 'production') => {
 
     // Create a camera
     var camera = new THREE.Camera();
+    const light = new THREE.AmbientLight( 0xAFAFAF ); // soft white light
+    scene.add( light );
+
     scene.add(camera);
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -136,8 +139,12 @@ const initArMarker = (mode = 'production') => {
     // add a torus knot
     // createTorusKnot(scene);
 
-    loader.load('assets/soldier.glb', function (gltf) {
+    loader.load('assets/sci-fi.glb', function (gltf) {
 
+        const model = gltf.scene;
+        // model.rotation.x = 180;
+        // model.rotation.x = -90;
+        model.scale.set(10, 10, 10);
         scene.add(gltf.scene);
 
     }, undefined, function (error) {
