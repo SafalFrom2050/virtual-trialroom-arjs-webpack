@@ -139,14 +139,15 @@ const initArMarker = (mode = 'production') => {
     // add a torus knot
     // createTorusKnot(scene);
 
-    loader.load('assets/sci-fi.glb', function (gltf) {
+    loader.load('assets/3d-models/suit.glb', function (gltf) {
 
         const model = gltf.scene;
-        // model.rotation.x = 180;
-        model.rotation.x -= 90;
-        model.position.z += 17;
-        // model.position.y = -10;
-        model.scale.set(14, 14, 14);
+        model.rotation.y += 3.1;
+        model.rotation.z -= 0.5;
+        // model.position.z += 17;
+        model.position.y = -0.5
+        model.position.z = +9.3;
+        model.scale.set(0.13, 0.13, 0.13);
 
         scene.add(gltf.scene);
 
