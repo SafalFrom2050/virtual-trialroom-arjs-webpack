@@ -1,19 +1,32 @@
 .banner {
   padding: 16px 0;
-  background: #3c579d;
-  color: #EEEEEE;
+  color: #3c579d;
+  //color: #EEEEEE;
   .content-container {
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     margin: 0 auto;
-    padding: 16px;
+    padding: 8px 32px;
   }
   h1 {
     margin: 0;
     font-size: 40px;
+    font-weight: bolder;
   }
   p {
     margin: 0;
     font-size: 16px;
     color: yellow;
+    display: flex;
+    align-items: center;
+
+    #markerImage {
+      margin-left: 16px;
+      height: 100px;
+      width: 100px;
+    }
   }
 }
