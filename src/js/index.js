@@ -7,6 +7,7 @@ import * as GLTFLoader from "./plugins/three/GLTFLoader";
 import initarNFT from './plugins/arNFTInit';
 // Import for ARJS marker-based version
 import initArMarker from './plugins/arMarkerInit';
+import {APP_CONFIGS} from "../appConfigs";
 
 
 // Launch the ARJS simulation mode if ?mode=simulation in URL
@@ -20,6 +21,10 @@ if (params.get("type") === "nft") {
   // ARJS marker-based version
   initArMarker(params.get("mode"));
 }
+
+const markerImage = document.getElementById("markerImage")
+markerImage.src = APP_CONFIGS.markerImage
+
 
 console.log(
   `%c Virtual Trial Room using AR.JS`,
