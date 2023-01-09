@@ -37,8 +37,10 @@ const initArMarker = (mode = 'production') => {
 
     // Create a camera
     var camera = new THREE.Camera();
-    const light = new THREE.AmbientLight( 0xAFAFAF ); // soft white light
-    scene.add( light );
+    // const light = new THREE.AmbientLight( 0x999999 ); // soft white light
+    // scene.add( light );
+
+
 
     scene.add(camera);
 
@@ -148,6 +150,20 @@ const initArMarker = (mode = 'production') => {
         model.position.y = -0.5
         model.position.z = +9.3;
         model.scale.set(0.13, 0.13, 0.13);
+
+
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.target = model;
+        directionalLight.castShadow = true;
+        directionalLight.position.y= 10;
+        directionalLight.position.z = 10;
+        directionalLight.position.x = 0;
+        scene.add( directionalLight );
+
+        // const light = new THREE.PointLight( 0xffffff, 2, 50 );
+        // light.position.set( -10, 20, 5 );
+        // light.castShadow = true;
+        // scene.add( light );
 
         scene.add(gltf.scene);
 
