@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import * as THREEx from 'arMarker';
 import createTorusKnot from './three/three-torusKnot';
+import {OrbitControls} from "./three/addons/OrbitControls";
+import {TransformControls} from "./three/addons/TransformControls";
 
 THREEx.ArToolkitContext.baseURL = 'assets/';
 const loader = new THREE.GLTFLoader();
@@ -36,13 +38,55 @@ const initArMarker = (mode = 'production') => {
     //////////////////////////////////////////////////////////////////////////////////
 
     // Create a camera
-    var camera = new THREE.Camera();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     // const light = new THREE.AmbientLight( 0x999999 ); // soft white light
     // scene.add( light );
 
+    camera.position.z=0;
+    camera.lookAt(scene.position);
 
 
-    scene.add(camera);
+    const controls = new OrbitControls( camera, renderer.domElement );
+    animate();
+
+
+    // START Transform Controls
+
+    const transformControls = new TransformControls(camera, renderer.domElement)
+    scene.add(transformControls)
+    transformControls.addEventListener('mouseDown', function () {
+        controls.enabled = false
+    })
+    transformControls.addEventListener('mouseUp', function () {
+        controls.enabled = true
+    })
+
+    window.addEventListener('keydown', function (event) {
+        switch (event.key) {
+            case 'g':
+                transformControls.setMode('translate')
+                break
+            case 'r':
+                transformControls.setMode('rotate')
+                break
+            case 's':
+                transformControls.setMode('scale')
+                break
+        }
+    })
+
+    // END Transform Controls
+
+
+
+
+    function animate() {
+        // required if controls.enableDamping or controls.autoRotate are set to true
+        controls.update();
+        renderer.render( scene, camera );
+    }
+    renderer.setAnimationLoop(animate);
+
 
     ////////////////////////////////////////////////////////////////////////////////
     //          handle arToolkitSource
@@ -99,7 +143,7 @@ const initArMarker = (mode = 'production') => {
     // create atToolkitContext
     var arToolkitContext = new THREEx.ArToolkitContext({
         cameraParametersUrl: THREEx.ArToolkitContext.baseURL + 'camera_para.dat',
-        detectionMode: 'mono'
+        detectionMode: 'mono_and_matrix',
     })
     // initialize it
     arToolkitContext.init(function onCompleted() {
@@ -141,30 +185,35 @@ const initArMarker = (mode = 'production') => {
     // add a torus knot
     // createTorusKnot(scene);
 
+
     loader.load('assets/3d-models/suit.glb', function (gltf) {
 
         const model = gltf.scene;
         model.rotation.y += 3.1;
-        model.rotation.z -= 0.5;
+        model.rotation.z -= 0.1;
         // model.position.z += 17;
-        model.position.y = -0.5
-        model.position.z = +9.3;
-        model.scale.set(0.13, 0.13, 0.13);
+        // model.position.y = -5
+        model.position.x = -0.5;
+        model.position.z = +11.5;
+        model.scale.set(0.15, 0.15, 0.15);
 
 
-        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.target = model;
         directionalLight.castShadow = true;
-        directionalLight.position.y= 10;
-        directionalLight.position.z = 10;
+        directionalLight.position.y = 10;
+        directionalLight.position.z = 100;
         directionalLight.position.x = 0;
-        scene.add( directionalLight );
+        scene.add(directionalLight);
 
-        // const light = new THREE.PointLight( 0xffffff, 2, 50 );
-        // light.position.set( -10, 20, 5 );
-        // light.castShadow = true;
-        // scene.add( light );
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight2.target = model;
+        directionalLight2.position.y = -10;
+        directionalLight2.position.z = 50;
+        directionalLight2.position.x = 0;
+        scene.add(directionalLight2);
 
+        transformControls.attach(gltf.scene)
         scene.add(gltf.scene);
 
     }, undefined, function (error) {
