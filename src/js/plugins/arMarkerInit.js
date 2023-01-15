@@ -194,8 +194,8 @@ const initArMarker = (mode = 'production') => {
         // model.position.z += 17;
         // model.position.y = -5
         model.position.x = -0.5;
-        model.position.z = +11.5;
-        model.scale.set(0.15, 0.15, 0.15);
+        model.position.z = +6.5;
+        model.scale.set(0.08, 0.08, 0.08);
 
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
@@ -206,11 +206,11 @@ const initArMarker = (mode = 'production') => {
         directionalLight.position.x = 0;
         scene.add(directionalLight);
 
-        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight2 = new THREE.DirectionalLight(0xfafafa, 1);
         directionalLight2.target = model;
-        directionalLight2.position.y = -10;
-        directionalLight2.position.z = 50;
-        directionalLight2.position.x = 0;
+        directionalLight2.position.y = 5;
+        directionalLight2.position.z = 8;
+        directionalLight2.position.x = 1;
         scene.add(directionalLight2);
 
         transformControls.attach(gltf.scene)
